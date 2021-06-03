@@ -283,7 +283,7 @@ class WordJumbleModule extends Indicator {
     checkString() {
         console.log(this.input.value)
         if(this.input.value.toUpperCase() === this.correctString) {
-            finished()
+            this.finished()
         } else {
             this.input.value = ''
             missionFailed()

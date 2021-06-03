@@ -15,12 +15,12 @@ var symbolList = []
     }
 }
 var moduleList = [];
-var moduleCount = 4
+var moduleCount = 20
 addEventListener('load', () => {
     makeModule(moduleCount)
     moduleList.push(new Timer(5,0,0))
     for(let x = 1; x < moduleCount; x++) {
-        let moduleRandom = randomNum(0,2)
+        let moduleRandom = randomNum(1,1)
         switch(moduleRandom) {
             case 0:
                 createWireModule(x)
