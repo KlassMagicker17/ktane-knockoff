@@ -1,0 +1,103 @@
+body {
+    background-color: hsl(0,0%,20%);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap : 20px;
+    justify-content: space-around;
+    grid-auto-flow: row;
+    color: white;
+    font-family:'Courier New', Courier, monospace;
+}
+/* basic components */
+.module {
+    box-sizing: border-box;
+    background-color: hsl(0,0%,8%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    border: 10px solid black;
+    position: relative;
+    border-radius: 20px;
+
+}
+.indi {
+    position: absolute;
+    margin: 10px;
+    top: 0px;
+    right: 0px;
+    z-index: 2;
+    height: 15px;
+    width: 15px;
+    background-color: red;
+    border-radius: 50%;
+}
+.deactivated {
+    background-color: green;
+}
+
+/* basic wire */
+.basic-wire {
+    justify-content: space-evenly;
+}
+.wire {
+    width: 10px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+.wire:before, .wire:after {
+    content:'';
+    width: 20px;
+    height: 10px;
+    position: absolute;
+    background-color: gray;
+    left:-5px;
+
+}
+.wire:before {
+    top:0px
+}
+.wire:after {
+    bottom: 0px
+}
+.wire-cut {
+    width: 10px;
+    height: 30px;
+    background-color: hsl(0,0%,8%);
+}
+
+/* symbol */
+.symbol-seq {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    gap: 20px;
+}
+.symbol {
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 2px solid white;
+    cursor: pointer;
+    transition: opacity 200ms ease;
+}
+.pressed {
+    opacity: 0.2;
+    pointer-events: none;
+}
+/* word jumble */
+.word-jumble {
+    flex-flow: column;
+}
+.word-jumble input {
+    text-align: center;
+    font-size: 1em;
+    text-transform: uppercase;
+}
