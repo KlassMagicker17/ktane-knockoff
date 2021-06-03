@@ -297,8 +297,18 @@ class ColorPaneModule extends Indicator {
         super(moduleNum,'color-pane')
         this.yellowCircle = yellow
         this.blueCircle = blue
+        this.buildModule()
     }
     buildModule() {
-        
+        let table = writeTable(4, 4)
+        let blue = document.createElement('div')
+        blue.classList.add('circle')
+        blue.style.backgroundColor = 'blue'
+        let yellow = document.createElement('div')
+        yellow.classList.add('circle')
+        yellow.style.backgroundColor = 'yellow'
+        table.rows[this.yellowCircle[0]].cells[this.yellowCircle[1]].append(yellow)
+        table.rows[this.blueCircle[0]].cells[this.blueCircle[1]].append(blue)
+        this.moduleDom.appendChild(table)
     }
 }

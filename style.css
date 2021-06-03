@@ -101,3 +101,19 @@ body {
     font-size: 1em;
     text-transform: uppercase;
 }
+
+/* color pane */
+.color-pane table {
+    border-collapse: collapse;
+}
+.color-pane td {
+    border: white 2px solid;
+    width: 30px;
+    height: 30px;
+}
+.circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin: 0px auto;
+}

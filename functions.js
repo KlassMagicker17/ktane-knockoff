@@ -46,6 +46,11 @@ function createJumbleModule(x) {
     }
     moduleList.push(new WordJumbleModule(tempString.toUpperCase(),x))
 }
+function createColorModule(x) {
+    
+    moduleList.push(new ColorPaneModule([0,1],[1,0],x))
+}
+
 function jumbleWord(string,pattern) {
     let jumbled = []
     pattern.forEach(index => {
@@ -53,6 +58,7 @@ function jumbleWord(string,pattern) {
     })
     return jumbled.join('')
 }
+
 function removeElem(id) {
     elem = document.getElementById(id)
     if(elem) elem.remove()
@@ -64,15 +70,9 @@ function writeCell(row, text) {
     cell.appendChild(cellText);
     row.appendChild(cell);
 }
-function writeTable(divContainer,tableID, rowNum, columnNum) {
-    let container = document.getElementById(divContainer);
-    //removing previous table
-
-    removeElem(tableID)
-    //making table with id
+function writeTable(rowNum, columnNum) {
     let tbl = document.createElement("table")
     let tblBody = document.createElement("tbody")
-    tbl.id = tableID
     // creating all cells
     i=0
     while(i<rowNum) {
@@ -88,5 +88,5 @@ function writeTable(divContainer,tableID, rowNum, columnNum) {
         i++
     }
     tbl.appendChild(tblBody)
-    container.appendChild(tbl)
+    return tbl
 }

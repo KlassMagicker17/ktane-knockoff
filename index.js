@@ -33,5 +33,6 @@ addEventListener('load', () => {
                 break;
         }
     }
+    // createColorModule(1)
 
 })
