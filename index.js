@@ -30,7 +30,10 @@ const patterns = [
     ]
 ]
 var moduleList = [];
-var moduleCount = 5
+// var moduleCount = localStorage.getItem('ktaneSettings-david').
+// console.log(localStorage.getItem('ktaneSettings-david'));
+var moduleCount = parseInt(localStorage.getItem('ktaneSettings-moduleNum'))
+var moduleFinished = 0
 addEventListener('load', () => {
     makeModule(moduleCount)
     moduleList.push(new Timer(5, 0, 0))
@@ -51,5 +54,4 @@ addEventListener('load', () => {
                 break
         }
     }
-    test()
 })

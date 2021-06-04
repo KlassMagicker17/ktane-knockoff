@@ -1,0 +1,4 @@
+assests/symbol.png
+assests/symbol.svg
+pdf/*
+!pdf/*.pdf

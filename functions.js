@@ -22,6 +22,18 @@ function missionFailed() {
     alert('yow have died. work on your communication skills dipshit.')
     clearInterval(moduleList[0].timer)
 }
+function missionFinish() {
+    let allDeactivated = true
+    for(let i=1;i < moduleList.length; i++) {
+        if(!moduleList[i].deactivate) {
+            allDeactivated = false
+        }
+    }
+    if(allDeactivated) {
+        clearInterval(moduleList[0].timer)
+        alert('You won!')
+    }
+}
 function createWireModule(x) {
     let wireList = []
     let i = 0
@@ -99,9 +111,4 @@ function buildTable(rowNum, columnNum) {
     }
     tbl.appendChild(tblBody)
     return tbl
-}
-function test() {
-    moduleList.forEach(module => {
-        // console.log(module.correctString)
-    })
 }

@@ -37,7 +37,7 @@ class Indicator {
         this.indiDom.classList.add('deactivated')
         this.moduleDom.classList.add('module-deactivate')
         this.deactivate = true
-        clearInterval(moduleList[0].timer)
+        missionFinish()
     }
 }
 // wires
@@ -229,7 +229,6 @@ class WordJumbleModule extends Indicator {
         const lastLetter = this.word.charAt(this.word.length - 1).toLowerCase()
         if (lastLetter === 'a' || lastLetter === 'e' || lastLetter === 'i' || lastLetter === 'o' || lastLetter === 'u') {
             correctWord = correctWord.split("").reverse().join("")
-            console.log(correctWord)
         }
         switch (correctWord.charAt(0)) {
             case 'A':
@@ -277,12 +276,11 @@ class WordJumbleModule extends Indicator {
                 correctWord = jumbleWord(correctWord, [3, 0, 1, 2])
                 break;
             default:
-                console.log('ulol')
+                console.log('ulols ka')
         }
         return correctWord
     }
     checkString() {
-        console.log(this.input.value)
         if (this.input.value.toUpperCase() === this.correctString) {
             this.finished()
         } else {
@@ -350,7 +348,6 @@ class ColorPaneModule extends Indicator {
             }
         })
         if(this.pressedTimes === this.pattern.length) {
-            console.log('you won')
             this.finished()
         }
         if (correct) {

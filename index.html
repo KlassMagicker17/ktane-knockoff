@@ -1,15 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KEEP TALKING AND NOBODY EXPLODES</title>
+    <title>test</title>
     <link rel="stylesheet" href="style.css">
-    <script src="functions.js"></script>
-    <script src="modules.js"></script>
-    <script src="index.js"></script>
+    <style>
+        body {
+            display: flex;
+            overflow: hidden;
+            min-height: 100vh;
+            align-items: center;
+
+        }
+
+        .thing {
+            background-color: hsl(0, 0%, 10%);
+            border-radius: 10px;
+            flex-flow: column;
+            padding: 50px;
+            align-items: center;
+            display: flex;
+        }
+
+        .thing label {
+            margin-bottom: 50px;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:hover {
+            opacity: 0.7;
+        }
+    </style>
 </head>
-<body> 
+
+<body>
+
+    <div class="thing">
+        <input type="number" name="moduleNum" id="moduleNum" value=5 min=1>
+        <label for="moduleNum">Module Number</label>
+        <a href="game.html">Play!</a>
+    </div>
+    <script>
+        var moduleNumDom = document.getElementById('moduleNum')
+        if (localStorage.getItem('ktaneSettings-moduleNum') !== '') {
+            moduleNumDom.value = localStorage.getItem('ktaneSettings-moduleNum')
+            console.log('test')
+        }
+        moduleNum = moduleNumDom.value
+        console.log(moduleNumDom.value)
+
+        onbeforeunload = () => {
+            moduleNum = moduleNumDom.value
+            localStorage.setItem('ktaneSettings-moduleNum', moduleNum)
+        }
+        document.getElementById('moduleNum').onchange = () => {
+            moduleNum = moduleNumDom.value
+
+            localStorage.setItem('ktaneSettings-moduleNum', moduleNum)
+            console
+        }
+        localStorage.setItem('ktaneSettings-moduleNum', moduleNum)
+    </script>
 </body>
+
 </html>
