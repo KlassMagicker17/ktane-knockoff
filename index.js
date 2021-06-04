@@ -30,7 +30,7 @@ const patterns = [
     ]
 ]
 var moduleList = [];
-var moduleCount = 2
+var moduleCount = 5
 addEventListener('load', () => {
     makeModule(moduleCount)
     moduleList.push(new Timer(5, 0, 0))
