@@ -1,6 +1,7 @@
+//@ts-check
 // timer
 class Timer {
-    constructor(minute,second,moduleNum) {
+    constructor(minute, second, moduleNum) {
         this.timerDom = document.getElementsByClassName('module')[moduleNum]
         this.timerDom.classList.add('timer')
         this.minute = minute
@@ -8,38 +9,40 @@ class Timer {
         this.incrementTime()
     }
     incrementTime() {
-        this.timer = setInterval(()=> {
+        this.timer = setInterval(() => {
             this.second -= 0.01
-            if(this.minute === 0 && this.second <= 0) {
+            if (this.minute === 0 && this.second <= 0) {
                 missionFailed()
-            } else if(this.second <= 0) {
+            } else if (this.second <= 0) {
                 this.minute--
                 this.second = 60
             }
-
-            this.timerDom.innerHTML = `${this.minute}:${this.second.toFixed(2)}`
-        },10)
+            let minuteText = '00' + this.minute
+            let secondText = '00' + this.second.toFixed(2)
+            this.timerDom.innerHTML = `${minuteText.substr(minuteText.length - 2)}:${secondText.substr(secondText.length - 5)}`
+        }, 10)
     }
 }
 // indicator
 class Indicator {
-    constructor(moduleNum,classType) {
+    constructor(moduleNum, classType) {
         this.indiDom = document.createElement('div')
         this.indiDom.classList.add('indi')
         this.deactivate = false
         this.moduleDom = document.getElementsByClassName('module')[moduleNum]
         this.moduleDom.classList.add(classType)
-
+        this.moduleDom.append(this.indiDom)
     }
     finished() {
         this.indiDom.classList.add('deactivated')
+        this.moduleDom.classList.add('module-deactivate')
         this.deactivate = true
     }
 }
 // wires
 class BasicWireModule extends Indicator {
     constructor(wires, moduleNum) {
-        super(moduleNum,'basic-wire')
+        super(moduleNum, 'basic-wire')
         this.wires = wires
         this.colorCount = {
             red: attributeCounter(this.wires, 'color', 'red'),
@@ -99,7 +102,6 @@ class BasicWireModule extends Indicator {
     cutWire(wireIndex) {
         this.wires[wireIndex].cut()
         if (wireIndex === this.correctWireIndex) {
-            this.moduleDom.style.pointerEvents = 'none'
             this.finished()
         }
         else missionFailed()
@@ -110,7 +112,6 @@ class BasicWireModule extends Indicator {
             wire.onclick = () => this.cutWire(i)
             this.moduleDom.appendChild(wire)
         }
-        this.moduleDom.append(this.indiDom)
     }
 }
 class Wire {
@@ -129,7 +130,7 @@ class Wire {
 // symbol
 class SymbolSequenceModule extends Indicator {
     constructor(sequence, moduleNum) {
-        super(moduleNum,'symbol-seq')
+        super(moduleNum, 'symbol-seq')
         this.direction = sequence.direction
         this.index = sequence.index
         this.sequence = this.sequenceParser()
@@ -166,14 +167,13 @@ class SymbolSequenceModule extends Indicator {
             let i = this.sequence.indexOf(symbol)
             this.sequence.splice(i, 1)
         })
-        this.moduleDom.append(this.indiDom)
 
     }
     sequenceParser() {
         let sequence = []
         if (this.direction === 'row') {
             let i = 0
-            while(i < 5) {
+            while (i < 5) {
                 sequence.push(`${this.index}${i}`)
                 i++
             }
@@ -181,7 +181,7 @@ class SymbolSequenceModule extends Indicator {
         }
         if (this.direction === 'column') {
             let i = 0
-            while(i < 5) {
+            while (i < 5) {
                 sequence.push(`${i}${this.index}`)
                 i++
             }
@@ -198,7 +198,6 @@ class SymbolButton {
         this.symbolImage = document.createElement('img')
         this.symbolImage.src = `assests/${this.symbol}.png`
         this.symbolDom.appendChild(this.symbolImage)
-        // this.symbolDom.style.backgroundImage = `url(assests/${this.symbol}.png)`
     }
     press() {
         this.symbolDom.classList.add('pressed')
@@ -208,10 +207,10 @@ class SymbolButton {
 // word jubmel
 class WordJumbleModule extends Indicator {
     constructor(word, moduleNum) {
-        super(moduleNum,'word-jumble')
+        super(moduleNum, 'word-jumble')
         this.word = word
         this.input
-        this.buildModule(moduleNum)
+        this.buildModule()
         this.correctString = this.correctStringFinder()
     }
     buildModule() {
@@ -222,7 +221,6 @@ class WordJumbleModule extends Indicator {
         this.input.type = 'text'
         this.input.onchange = () => this.checkString()
         this.moduleDom.appendChild(this.input)
-        this.moduleDom.append(this.indiDom)
     }
     correctStringFinder() {
         const regex = new RegExp('[aeiou]');
@@ -234,46 +232,46 @@ class WordJumbleModule extends Indicator {
             case 'A':
             case 'K':
             case 'X':
-                correctWord = jumbleWord(correctWord,[2,3,1,0])
+                correctWord = jumbleWord(correctWord, [2, 3, 1, 0])
                 break;
             case 'C':
             case 'M':
             case 'F':
-                correctWord = jumbleWord(correctWord,[3,2,1,0])
+                correctWord = jumbleWord(correctWord, [3, 2, 1, 0])
                 break;
             case 'G':
             case 'J':
             case 'N':
-                correctWord = jumbleWord(correctWord,[1,0,3,2])
+                correctWord = jumbleWord(correctWord, [1, 0, 3, 2])
                 break;
             case 'I':
             case 'R':
             case 'Q':
-                correctWord = jumbleWord(correctWord,[3,2,0,1])
+                correctWord = jumbleWord(correctWord, [3, 2, 0, 1])
                 break;
             case 'D':
             case 'H':
             case 'O':
-                correctWord = jumbleWord(correctWord,[2,0,3,1])
+                correctWord = jumbleWord(correctWord, [2, 0, 3, 1])
                 break;
             case 'L':
             case 'V':
             case 'Y':
-                correctWord = jumbleWord(correctWord,[1,2,3,0])
+                correctWord = jumbleWord(correctWord, [1, 2, 3, 0])
                 break;
             case 'S':
             case 'W':
             case 'P':
-                correctWord = jumbleWord(correctWord,[2,3,0,1])
+                correctWord = jumbleWord(correctWord, [2, 3, 0, 1])
                 break;
             case 'E':
             case 'U':
             case 'S':
-                correctWord = jumbleWord(correctWord,[1,3,0,2])
+                correctWord = jumbleWord(correctWord, [1, 3, 0, 2])
                 break;
             case 'B':
             case 'T':
-                correctWord = jumbleWord(correctWord,[3,0,1,2])
+                correctWord = jumbleWord(correctWord, [3, 0, 1, 2])
                 break;
             default:
                 console.log('ulol')
@@ -282,7 +280,7 @@ class WordJumbleModule extends Indicator {
     }
     checkString() {
         console.log(this.input.value)
-        if(this.input.value.toUpperCase() === this.correctString) {
+        if (this.input.value.toUpperCase() === this.correctString) {
             this.finished()
         } else {
             this.input.value = ''
@@ -291,24 +289,70 @@ class WordJumbleModule extends Indicator {
     }
 }
 
-// pane
+// color pane
 class ColorPaneModule extends Indicator {
-    constructor(yellow,blue, moduleNum) {
-        super(moduleNum,'color-pane')
+    constructor(yellow, blue, moduleNum) {
+        super(moduleNum, 'color-pane')
         this.yellowCircle = yellow
         this.blueCircle = blue
         this.buildModule()
+        this.pattern = this.correctPattern()
+        this.pressedTimes = 0
     }
     buildModule() {
-        let table = writeTable(4, 4)
-        let blue = document.createElement('div')
-        blue.classList.add('circle')
-        blue.style.backgroundColor = 'blue'
-        let yellow = document.createElement('div')
-        yellow.classList.add('circle')
-        yellow.style.backgroundColor = 'yellow'
-        table.rows[this.yellowCircle[0]].cells[this.yellowCircle[1]].append(yellow)
-        table.rows[this.blueCircle[0]].cells[this.blueCircle[1]].append(blue)
+        let table = buildTable(4, 4)
+        placeCircle(table, this.blueCircle, 'blue')
+        placeCircle(table, this.yellowCircle, 'yellow')
+        for (let i = 0; i < table.rows.length; i++) {
+            for (let j = 0; j < table.rows[i].cells.length; j++) {
+                let row;
+                switch (i) {
+                    case 0:
+                        row = 'A'
+                        break;
+                    case 1:
+                        row = 'B'
+                        break;
+                    case 2:
+                        row = 'C'
+                        break;
+                    case 3:
+                        row = 'D'
+                        break;
+                    default:
+                        console.log('something broke dude. color panel.')
+                }
+
+                table.rows[i].cells[j].onclick = () => {
+                    table.rows[i].cells[j].classList.add('pattern')
+                    this.cellPress(row + (j + 1))
+                }
+            }
+        }
         this.moduleDom.appendChild(table)
+    }
+    correctPattern() {
+        let row = blueLookUpTable[this.blueCircle[0]][this.blueCircle[1]]
+        let column = yellowLookUpTable[this.yellowCircle[0]][this.yellowCircle[1]]
+        return patterns[row][column]
+    }
+    cellPress(cell) {
+        let correct = false
+        this.pattern.forEach(spot => {
+            if (cell === spot) {
+                correct = true
+            this.pressedTimes++
+
+                return
+            }
+        })
+        if(this.pressedTimes === 6) {
+            console.log('you won')
+            this.finished()
+        }
+        if (correct) {
+            return
+        }
+        missionFailed()
     }
 }

@@ -1,16 +1,17 @@
-function attributeCounter(array,attrName,attrValue) {
-    count = 0
-    for(let i = 0; i < array.length; i++) {
-        if(array[i][attrName] === attrValue) count++
+//@ts-check
+function attributeCounter(array, attrName, attrValue) {
+    let count = 0
+    for (let i = 0; i < array.length; i++) {
+        if (array[i][attrName] === attrValue) count++
     }
     return count
 }
-function randomNum(min,max) {
+function randomNum(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
-function makeModule(moduleCount=1) {
-    i=0
-    while(i < moduleCount) {
+function makeModule(moduleCount = 1) {
+    let i = 0
+    while (i < moduleCount) {
         let module = document.createElement('div')
         module.classList.add('module')
         document.body.appendChild(module)
@@ -24,34 +25,39 @@ function missionFailed() {
 function createWireModule(x) {
     let wireList = []
     let i = 0
-    while(i<randomNum(4,6)) {
-        wireList.push(new Wire(wireColorList[Math.floor(wireColorList.length*Math.random())]))
+    while (i < randomNum(4, 6)) {
+        wireList.push(new Wire(wireColorList[Math.floor(wireColorList.length * Math.random())]))
         i++
     }
-    moduleList.push(new BasicWireModule(wireList,x))
+    moduleList.push(new BasicWireModule(wireList, x))
 }
 function createSymbolModule(x) {
     let r
-    if(Math.random() > 0.5) r = 'row'
+    if (Math.random() > 0.5) r = 'row'
     else r = 'column'
-    moduleList.push(new SymbolSequenceModule({direction:r,index:randomNum(0,4)},x))
+    moduleList.push(new SymbolSequenceModule({ direction: r, index: randomNum(0, 4) }, x))
 }
 function createJumbleModule(x) {
     const alphabeth = 'abcdefghijklmnopqrstuvwxyz'
     let tempString = ''
     let i = 0
-    while(i<4) {
-        tempString += alphabeth[Math.floor(Math.random()*alphabeth.length)]
+    while (i < 4) {
+        tempString += alphabeth[Math.floor(Math.random() * alphabeth.length)]
         i++
     }
-    moduleList.push(new WordJumbleModule(tempString.toUpperCase(),x))
+    moduleList.push(new WordJumbleModule(tempString.toUpperCase(), x))
 }
 function createColorModule(x) {
-    
-    moduleList.push(new ColorPaneModule([0,1],[1,0],x))
+    let yellow = [randomNum(0, 3), randomNum(0, 3)]
+    let blue = [randomNum(0, 3), randomNum(0, 3)]
+    if(yellow[0] === blue[0] && yellow[1] === blue[1]) {
+        blue = [randomNum(0, 3), randomNum(0, 3)]
+        console.log('what.')
+    }
+    moduleList.push(new ColorPaneModule(yellow, blue, x))
 }
 
-function jumbleWord(string,pattern) {
+function jumbleWord(string, pattern) {
     let jumbled = []
     pattern.forEach(index => {
         jumbled.push(string.charAt(index))
@@ -59,29 +65,23 @@ function jumbleWord(string,pattern) {
     return jumbled.join('')
 }
 
-function removeElem(id) {
-    elem = document.getElementById(id)
-    if(elem) elem.remove()
+function placeCircle(table,pos, color) {
+    let circle = document.createElement('div')
+    circle.classList.add('circle')
+    circle.style.borderColor = color
+    table.rows[pos[0]].cells[pos[1]].appendChild(circle)
 }
-//for making the table
-function writeCell(row, text) {
-    let cell = document.createElement("td");
-    let cellText = document.createTextNode(text);
-    cell.appendChild(cellText);
-    row.appendChild(cell);
-}
-function writeTable(rowNum, columnNum) {
+function buildTable(rowNum, columnNum) {
     let tbl = document.createElement("table")
     let tblBody = document.createElement("tbody")
     // creating all cells
-    i=0
-    while(i<rowNum) {
+    let i = 0
+    while (i < rowNum) {
         let row = document.createElement('tr')
-        j=0
-        while(j<columnNum) {
-            let column =document.createElement('td')
-            // column.innerHTML = `${i}, ${j}`
-            row.appendChild(column)
+        let j = 0
+        while (j < columnNum) {
+            let cell = document.createElement('td')
+            row.appendChild(cell)
             j++
         }
         tblBody.appendChild(row)
