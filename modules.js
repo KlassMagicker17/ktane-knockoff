@@ -37,6 +37,7 @@ class Indicator {
         this.indiDom.classList.add('deactivated')
         this.moduleDom.classList.add('module-deactivate')
         this.deactivate = true
+        clearInterval(moduleList[0].timer)
     }
 }
 // wires
@@ -225,8 +226,10 @@ class WordJumbleModule extends Indicator {
     correctStringFinder() {
         const regex = new RegExp('[aeiou]');
         let correctWord = this.word
-        if (regex.test(this.word.charAt(this.word.length - 1))) {
+        const lastLetter = this.word.charAt(this.word.length - 1).toLowerCase()
+        if (lastLetter === 'a' || lastLetter === 'e' || lastLetter === 'i' || lastLetter === 'o' || lastLetter === 'u') {
             correctWord = correctWord.split("").reverse().join("")
+            console.log(correctWord)
         }
         switch (correctWord.charAt(0)) {
             case 'A':
@@ -266,7 +269,7 @@ class WordJumbleModule extends Indicator {
                 break;
             case 'E':
             case 'U':
-            case 'S':
+            case 'Z':
                 correctWord = jumbleWord(correctWord, [1, 3, 0, 2])
                 break;
             case 'B':
@@ -346,7 +349,7 @@ class ColorPaneModule extends Indicator {
                 return
             }
         })
-        if(this.pressedTimes === 6) {
+        if(this.pressedTimes === this.pattern.length) {
             console.log('you won')
             this.finished()
         }

@@ -47,12 +47,22 @@ function createJumbleModule(x) {
     }
     moduleList.push(new WordJumbleModule(tempString.toUpperCase(), x))
 }
+function correctColor(blue,yellow) {
+    if(yellow[0] === blue[0] && yellow[1] === blue[1]) {
+        blue = [randomNum(0, 3), randomNum(0, 3)]
+    }
+}
 function createColorModule(x) {
     let yellow = [randomNum(0, 3), randomNum(0, 3)]
     let blue = [randomNum(0, 3), randomNum(0, 3)]
-    if(yellow[0] === blue[0] && yellow[1] === blue[1]) {
-        blue = [randomNum(0, 3), randomNum(0, 3)]
-        console.log('what.')
+    while(true) {
+        if (yellow[0] === blue[0] && yellow[1] === blue[1]) {
+            yellow = [randomNum(0, 3), randomNum(0, 3)]
+            blue = [randomNum(0, 3), randomNum(0, 3)]
+            console.log('same place')
+        }else {
+            break
+        }
     }
     moduleList.push(new ColorPaneModule(yellow, blue, x))
 }
@@ -89,4 +99,9 @@ function buildTable(rowNum, columnNum) {
     }
     tbl.appendChild(tblBody)
     return tbl
+}
+function test() {
+    moduleList.forEach(module => {
+        // console.log(module.correctString)
+    })
 }
