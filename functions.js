@@ -1,4 +1,5 @@
 //@ts-check
+// utility functions
 function attributeCounter(array, attrName, attrValue) {
     let count = 0
     for (let i = 0; i < array.length; i++) {
@@ -18,67 +19,6 @@ function makeModule(moduleCount = 1) {
         i++
     }
 }
-function missionFailed() {
-    alert('yow have died. work on your communication skills dipshit.')
-    clearInterval(moduleList[0].timer)
-}
-function missionFinish() {
-    let allDeactivated = true
-    for(let i=1;i < moduleList.length; i++) {
-        if(!moduleList[i].deactivate) {
-            allDeactivated = false
-        }
-    }
-    if(allDeactivated) {
-        clearInterval(moduleList[0].timer)
-        alert('You won!')
-    }
-}
-function createWireModule(x) {
-    let wireList = []
-    let i = 0
-    while (i < randomNum(4, 6)) {
-        wireList.push(new Wire(wireColorList[Math.floor(wireColorList.length * Math.random())]))
-        i++
-    }
-    moduleList.push(new BasicWireModule(wireList, x))
-}
-function createSymbolModule(x) {
-    let r
-    if (Math.random() > 0.5) r = 'row'
-    else r = 'column'
-    moduleList.push(new SymbolSequenceModule({ direction: r, index: randomNum(0, 4) }, x))
-}
-function createJumbleModule(x) {
-    const alphabeth = 'abcdefghijklmnopqrstuvwxyz'
-    let tempString = ''
-    let i = 0
-    while (i < 4) {
-        tempString += alphabeth[Math.floor(Math.random() * alphabeth.length)]
-        i++
-    }
-    moduleList.push(new WordJumbleModule(tempString.toUpperCase(), x))
-}
-function correctColor(blue,yellow) {
-    if(yellow[0] === blue[0] && yellow[1] === blue[1]) {
-        blue = [randomNum(0, 3), randomNum(0, 3)]
-    }
-}
-function createColorModule(x) {
-    let yellow = [randomNum(0, 3), randomNum(0, 3)]
-    let blue = [randomNum(0, 3), randomNum(0, 3)]
-    while(true) {
-        if (yellow[0] === blue[0] && yellow[1] === blue[1]) {
-            yellow = [randomNum(0, 3), randomNum(0, 3)]
-            blue = [randomNum(0, 3), randomNum(0, 3)]
-            console.log('same place')
-        }else {
-            break
-        }
-    }
-    moduleList.push(new ColorPaneModule(yellow, blue, x))
-}
-
 function jumbleWord(string, pattern) {
     let jumbled = []
     pattern.forEach(index => {
@@ -86,7 +26,6 @@ function jumbleWord(string, pattern) {
     })
     return jumbled.join('')
 }
-
 function placeCircle(table,pos, color) {
     let circle = document.createElement('div')
     circle.classList.add('circle')
@@ -112,3 +51,68 @@ function buildTable(rowNum, columnNum) {
     tbl.appendChild(tblBody)
     return tbl
 }
+// game conditions
+function missionFailed() {
+    alert('yow have died. work on your communication skills dipshit.')
+    clearInterval(moduleList[0].timer)
+}
+function missionFinish() {
+    let allDeactivated = true
+    for(let i=1;i < moduleList.length; i++) {
+        if(!moduleList[i].deactivate) {
+            allDeactivated = false
+        }
+    }
+    if(allDeactivated) {
+        clearInterval(moduleList[0].timer)
+        alert('You won!')
+    }
+}
+// module creation
+function createWireModule(x) {
+    let wireList = []
+    let i = 0
+    while (i < randomNum(4, 6)) {
+        wireList.push(new Wire(wireColorList[Math.floor(wireColorList.length * Math.random())]))
+        i++
+    }
+    moduleList.push(new BasicWireModule(wireList, x))
+}
+function createSymbolModule(x) {
+    let r
+    if (Math.random() > 0.5) r = 'row'
+    else r = 'column'
+    moduleList.push(new SymbolSequenceModule({ direction: r, index: randomNum(0, 4) }, x))
+}
+function createJumbleModule(x) {
+    const alphabeth = 'abcdefghijklmnopqrstuvwxyz'
+    let tempString = ''
+    let i = 0
+    while (i < 4) {
+        tempString += alphabeth[Math.floor(Math.random() * alphabeth.length)]
+        i++
+    }
+    moduleList.push(new WordJumbleModule(tempString.toUpperCase(), x))
+}
+function createColorModule(x) {
+    let yellow = [randomNum(0, 3), randomNum(0, 3)]
+    let blue = [randomNum(0, 3), randomNum(0, 3)]
+    while(true) {
+        if (yellow[0] === blue[0] && yellow[1] === blue[1]) {
+            yellow = [randomNum(0, 3), randomNum(0, 3)]
+            blue = [randomNum(0, 3), randomNum(0, 3)]
+            console.log('same place')
+        }else {
+            break
+        }
+    }
+    moduleList.push(new ColorPaneModule(yellow, blue, x))
+}
+function createSliderModule(x) {
+    let symbolList = []
+    for(let i = 0; i < 3; i++) {
+        let shape = new SymbolShape('red','green','hexagon-shape')
+        symbolList.push(shape)
+    }
+    moduleList.push(new SliderShapeModule(symbolList, x))
+} 

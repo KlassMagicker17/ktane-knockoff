@@ -342,17 +342,81 @@ class ColorPaneModule extends Indicator {
         this.pattern.forEach(spot => {
             if (cell === spot) {
                 correct = true
-            this.pressedTimes++
+                this.pressedTimes++
 
                 return
             }
         })
-        if(this.pressedTimes === this.pattern.length) {
+        if (this.pressedTimes === this.pattern.length) {
             this.finished()
         }
         if (correct) {
             return
         }
         missionFailed()
+    }
+}
+
+// slider
+class SliderShapeModule extends Indicator {
+    constructor(symbols, moduleNum) {
+        super(moduleNum, 'slider-symbol')
+        this.symbolList = symbols
+        this.buildModule()
+    }
+    buildModule() {
+        // adding the inputs (slider and button)
+        const inputContainer = document.createElement('div')
+        inputContainer.classList.add('shape-container')
+        // slider
+        {
+            this.slider = document.createElement('input')
+            this.slider.type = 'range'
+            this.slider.min = '-3'
+            this.slider.max = '3'
+            this.slider.step = '1'
+            this.slider.value = '0'
+            this.slider.classList.add('slider-vertical')
+        }
+        // indicator
+        {
+            this.button = document.createElement('input')
+            this.button.type = 'button'
+            this.button.value = 'VALIDATE'
+            this.button.onclick = () => console.log('kiss my ass.')
+        }
+        inputContainer.appendChild(this.slider)
+        inputContainer.appendChild(this.button)
+        this.moduleDom.appendChild(inputContainer)
+        // adding the symbols
+        const shapeContainer = document.createElement('div')
+        this.symbolList.forEach(shape => {
+            console.log(shape)
+            shapeContainer.appendChild(shape.symbolDom)
+        })
+        shapeContainer.classList.add('shape-container')
+        this.moduleDom.appendChild(shapeContainer)
+    }
+}
+class SymbolShape {
+    constructor(outlineColor, fillColor, shape) {
+        this.outlineColor = outlineColor
+        this.fillColor = fillColor
+        this.shape = shape
+        this.symbolDom = document.createElement('div')
+        this.buildSymbol()
+    }
+    buildSymbol() {
+        // inner one
+        let innerDiv = document.createElement('div')
+        innerDiv.style.backgroundColor = this.fillColor
+        innerDiv.classList.add(this.shape)
+        innerDiv.classList.add('inner-shape')
+        // outer shell
+        this.symbolDom.style.backgroundColor = this.outlineColor
+        this.symbolDom.classList.add(this.shape)
+        this.symbolDom.classList.add('container-shape')
+        // combining the divs together
+        this.symbolDom.appendChild(innerDiv)
     }
 }

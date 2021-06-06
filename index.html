@@ -16,7 +16,7 @@
 
         }
 
-        .thing {
+        .container {
             background-color: hsl(0, 0%, 10%);
             border-radius: 10px;
             flex-flow: column;
@@ -25,7 +25,7 @@
             display: flex;
         }
 
-        .thing label {
+        .container label {
             margin-bottom: 50px;
         }
 
@@ -37,36 +37,46 @@
         a:hover {
             opacity: 0.7;
         }
+        .version{
+            color:gray;
+        }
     </style>
 </head>
 
 <body>
 
-    <div class="thing">
+    <form class="container" id="defuser">
         <input type="number" name="moduleNum" id="moduleNum" value=5 min=1>
         <label for="moduleNum">Module Number</label>
+        <input type="number" name="minute" id="minute" value=5 min=0>
+        <label for="minute">Minute</label>
+        <input type="number" name="second" id="second" value=0 min=0 max=59>
+        <label for="second">Seconds</label>
         <a href="game.html">Play!</a>
+    </form>
+    <div class="container" id="decoder">
+        <h1>Decoder's Manual</h1>
+        <a href="pdf/keep talking.pdf"><span class="version">v0.3</span> Current</a>
     </div>
     <script>
-        var moduleNumDom = document.getElementById('moduleNum')
-        if (localStorage.getItem('ktaneSettings-moduleNum') !== '') {
-            moduleNumDom.value = localStorage.getItem('ktaneSettings-moduleNum')
-            console.log('test')
+        function refreshSetting() {
+            let object = {
+                moduleNum: document.getElementById('moduleNum').value,
+                minute: document.getElementById('minute').value,
+                second: document.getElementById('second').value
+            }
+            return object
         }
-        moduleNum = moduleNumDom.value
-        console.log(moduleNumDom.value)
-
+        var setting = refreshSetting()
         onbeforeunload = () => {
-            moduleNum = moduleNumDom.value
-            localStorage.setItem('ktaneSettings-moduleNum', moduleNum)
+            setting = refreshSetting()
+            localStorage.setItem('ktaneSettings', JSON.stringify(setting))
         }
-        document.getElementById('moduleNum').onchange = () => {
-            moduleNum = moduleNumDom.value
-
-            localStorage.setItem('ktaneSettings-moduleNum', moduleNum)
-            console
-        }
-        localStorage.setItem('ktaneSettings-moduleNum', moduleNum)
+        document.getElementById('defuser').addEventListener('change', e => {
+            setting = refreshSetting()
+            localStorage.setItem('ktaneSettings', JSON.stringify(setting))
+        })
+        localStorage.setItem('ktaneSettings', JSON.stringify(setting))
     </script>
 </body>
 

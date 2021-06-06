@@ -14,7 +14,7 @@ const yellowLookUpTable = [
 ]
 const patterns = [
     [
-        ['A1', 'A3', 'A4', 'C1', 'C3', 'D4'],
+        ['A1', 'A3', 'A4', 'C1', 'C2', 'D4'],
         ['A4', 'B2', 'C2', 'C3', 'D1', 'D4'],
         ['A1', 'A4', 'B3', 'C2', 'C3', 'D1']
     ],
@@ -26,17 +26,17 @@ const patterns = [
     [
         ['A2', 'A4', 'B3', 'C2', 'D1', 'D3'],
         ['A1', 'B1', 'B2', 'C3', 'D1', 'D4'],
-        ['A3', 'B2', 'B3', 'C1', 'C2', 'C3']
+        ['A3', 'B2', 'B3', 'C1', 'C2', 'D4']
     ]
 ]
 var moduleList = [];
-// var moduleCount = localStorage.getItem('ktaneSettings-david').
-// console.log(localStorage.getItem('ktaneSettings-david'));
-var moduleCount = parseInt(localStorage.getItem('ktaneSettings-moduleNum'))
+const setting = JSON.parse(localStorage.getItem('ktaneSettings'))
+var moduleCount = parseInt(setting.moduleNum)
+console.log(setting)
 var moduleFinished = 0
 addEventListener('load', () => {
     makeModule(moduleCount)
-    moduleList.push(new Timer(5, 0, 0))
+    moduleList.push(new Timer(parseInt(setting.minute), parseInt(setting.second), 0))
     for(let x = 1; x < moduleCount; x++) {
         let moduleRandom = randomNum(0,3)
         switch(moduleRandom) {
@@ -54,4 +54,5 @@ addEventListener('load', () => {
                 break
         }
     }
+    // createSliderModule(2);
 })
