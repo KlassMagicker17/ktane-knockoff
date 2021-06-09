@@ -542,7 +542,7 @@ class ButtonShapeModule extends Indicator {
                 }
                 break
             case 2:
-                if (this.symbolList[0].outlineColor === 'white' && this.symbolList[1].outlineColor === 'white') {
+                if (this.symbolList[0].outlineColor ===  this.symbolList[1].outlineColor) {
                     this.applyRoutine('epsilon')
                 } else if (this.symbolList[1].fillColor === 'green') {
                     this.applyRoutine('delta')

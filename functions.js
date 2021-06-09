@@ -113,7 +113,7 @@ function createButtonModule(x) {
     for (let i = 0; i < randomNum(1,4); i++) {
         let shape = new SymbolShape(colorList[randomNum(0, colorList.length-1)],
          colorList[randomNum(0, colorList.length-1)],
-          shapeList[randomNum(0, shapeList.length-1)])
+          'triangle-shape')
         symbolList.push(shape)
     }
     moduleList.push(new ButtonShapeModule(symbolList, x))
