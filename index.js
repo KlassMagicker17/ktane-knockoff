@@ -39,7 +39,7 @@ addEventListener('load', () => {
     makeModule(moduleCount)
     moduleList.push(new Timer(parseInt(setting.minute), parseInt(setting.second), 'timer'))
     for(let x = 0; x < moduleCount; x++) {
-        let moduleRandom = randomNum(0,0)
+        let moduleRandom = randomNum(0,4)
         switch(moduleRandom) {
             case 0:
                 createWireModule(x)
