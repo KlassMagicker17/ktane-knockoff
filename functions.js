@@ -26,7 +26,7 @@ function jumbleWord(string, pattern) {
     })
     return jumbled.join('')
 }
-function placeCircle(table,pos, color) {
+function placeCircle(table, pos, color) {
     let circle = document.createElement('div')
     circle.classList.add('circle')
     circle.style.borderColor = color
@@ -58,12 +58,12 @@ function missionFailed() {
 }
 function missionFinish() {
     let allDeactivated = true
-    for(let i=1;i < moduleList.length; i++) {
-        if(!moduleList[i].deactivate) {
+    for (let i = 1; i < moduleList.length; i++) {
+        if (!moduleList[i].deactivate) {
             allDeactivated = false
         }
     }
-    if(allDeactivated) {
+    if (allDeactivated) {
         clearInterval(moduleList[0].timer)
         alert('You won!')
     }
@@ -72,8 +72,8 @@ function missionFinish() {
 function createWireModule(x) {
     let wireList = []
     let i = 0
-    while (i < randomNum(4, 6)) {
-        wireList.push(new Wire(wireColorList[Math.floor(wireColorList.length * Math.random())]))
+    while (i < randomNum(3, 6)) {
+        wireList.push(new Wire(colorList[Math.floor(colorList.length * Math.random())]))
         i++
     }
     moduleList.push(new BasicWireModule(wireList, x))
@@ -97,22 +97,25 @@ function createJumbleModule(x) {
 function createColorModule(x) {
     let yellow = [randomNum(0, 3), randomNum(0, 3)]
     let blue = [randomNum(0, 3), randomNum(0, 3)]
-    while(true) {
+    while (true) {
         if (yellow[0] === blue[0] && yellow[1] === blue[1]) {
             yellow = [randomNum(0, 3), randomNum(0, 3)]
             blue = [randomNum(0, 3), randomNum(0, 3)]
             console.log('same place')
-        }else {
+        } else {
             break
         }
     }
     moduleList.push(new ColorPaneModule(yellow, blue, x))
 }
-function createSliderModule(x) {
+function createButtonModule(x) {
     let symbolList = []
-    for(let i = 0; i < 3; i++) {
-        let shape = new SymbolShape('red','green','hexagon-shape')
+    for (let i = 0; i < randomNum(1,4); i++) {
+        let shape = new SymbolShape(colorList[randomNum(0, colorList.length-1)],
+         colorList[randomNum(0, colorList.length-1)],
+          shapeList[randomNum(0, shapeList.length-1)])
         symbolList.push(shape)
     }
-    moduleList.push(new SliderShapeModule(symbolList, x))
-} 
+    moduleList.push(new ButtonShapeModule(symbolList, x))
+    console.log(symbolList)
+}

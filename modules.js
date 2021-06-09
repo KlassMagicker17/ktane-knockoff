@@ -1,8 +1,8 @@
 //@ts-check
 // timer
 class Timer {
-    constructor(minute, second, moduleNum) {
-        this.timerDom = document.getElementsByClassName('module')[moduleNum]
+    constructor(minute, second, divId) {
+        this.timerDom = document.getElementById(divId)
         this.timerDom.classList.add('timer')
         this.minute = minute
         this.second = second
@@ -47,27 +47,91 @@ class BasicWireModule extends Indicator {
         this.wires = wires
         this.colorCount = {
             red: attributeCounter(this.wires, 'color', 'red'),
+            cyan: attributeCounter(this.wires, 'color', 'cyan'),
+            white: attributeCounter(this.wires, 'color', 'white'),
             green: attributeCounter(this.wires, 'color', 'green'),
             blue: attributeCounter(this.wires, 'color', 'blue'),
-            yellow: attributeCounter(this.wires, 'color', 'yellow'),
             violet: attributeCounter(this.wires, 'color', 'violet'),
-            cyan: attributeCounter(this.wires, 'color', 'cyan'),
-            white: attributeCounter(this.wires, 'color', 'white')
+            yellow: attributeCounter(this.wires, 'color', 'yellow'),
         }
         this.correctWireIndex = this.correctWire()
         this.buildModule()
     }
     correctWire() {
-        let last = this.wires.length - 1
-        if (this.wires[3].color === 'red') return 1
-        if (this.colorCount.green >= 2) return 0
-        if (this.wires[0].color === 'violet') return last
-        if (this.wires[last].color === 'yellow') return 3
-        if (this.colorCount.white === 0) return 2
-
+        let indexLook
+        let colorCountArr = Object.values(this.colorCount)
+        let index = 0
+        let colorHighest = 0
+        for (let i = 0; i < colorCountArr.length; i++) {
+            if (colorCountArr[i] > colorHighest) {
+                index = i
+                colorHighest = colorCountArr[i]
+            }
+        }
         switch (this.wires.length) {
+            case 3:
+                switch (index) {
+                    case 0:
+                        indexLook = 1
+                        break
+                    case 1:
+                        indexLook = 2
+                        break
+                    case 2:
+                        indexLook = 0
+                        break
+                    case 3:
+                        indexLook = 1
+                        break
+                    case 4:
+                        indexLook = 2
+                        break
+                    case 5:
+                        indexLook = 2
+                        break
+                    case 6:
+                        indexLook = 0
+                        break
+                    default:
+                        console.log("something must've broken")
+                }
+                switch (this.wires[indexLook].color) {
+                    case 'red': return 1
+                    case 'green': return 0
+                    case 'blue': return 2
+                    case 'yellow': return 1
+                    case 'violet': return 2
+                    case 'cyan': return 0
+                    case 'white': return 1
+                }
+                break
             case 4:
-                switch (this.wires[2].color) {
+                switch (index) {
+                    case 0:
+                        indexLook = 1
+                        break
+                    case 1:
+                        indexLook = 2
+                        break
+                    case 2:
+                        indexLook = 3
+                        break
+                    case 3:
+                        indexLook = 0
+                        break
+                    case 4:
+                        indexLook = 1
+                        break
+                    case 5:
+                        indexLook = 1
+                        break
+                    case 6:
+                        indexLook = 3
+                        break
+                    default:
+                        console.log("something must've broken")
+                }
+                switch (this.wires[indexLook].color) {
                     case 'red': return 0
                     case 'green': return 1
                     case 'blue': return 2
@@ -76,8 +140,34 @@ class BasicWireModule extends Indicator {
                     case 'cyan': return 3
                     case 'white': return 2
                 }
+                break
             case 5:
-                switch (this.wires[4].color) {
+                switch (index) {
+                    case 0:
+                        indexLook = 2
+                        break
+                    case 1:
+                        indexLook = 3
+                        break
+                    case 2:
+                        indexLook = 0
+                        break
+                    case 3:
+                        indexLook = 1
+                        break
+                    case 4:
+                        indexLook = 4
+                        break
+                    case 5:
+                        indexLook = 2
+                        break
+                    case 6:
+                        indexLook = 0
+                        break
+                    default:
+                        console.log("something must've broken")
+                }
+                switch (this.wires[indexLook].color) {
                     case 'red': return 4
                     case 'green': return 2
                     case 'blue': return 1
@@ -86,8 +176,34 @@ class BasicWireModule extends Indicator {
                     case 'cyan': return 0
                     case 'white': return 2
                 }
+                break
             case 6:
-                switch (this.wires[0].color) {
+                switch (index) {
+                    case 0:
+                        indexLook = 1
+                        break
+                    case 1:
+                        indexLook = 5
+                        break
+                    case 2:
+                        indexLook = 4
+                        break
+                    case 3:
+                        indexLook = 2
+                        break
+                    case 4:
+                        indexLook = 5
+                        break
+                    case 5:
+                        indexLook = 0
+                        break
+                    case 6:
+                        indexLook = 1
+                        break
+                    default:
+                        console.log("something must've broken")
+                }
+                switch (this.wires[indexLook].color) {
                     case 'red': return 4
                     case 'green': return 3
                     case 'blue': return 0
@@ -96,6 +212,7 @@ class BasicWireModule extends Indicator {
                     case 'cyan': return 2
                     case 'white': return 4
                 }
+                break
             default:
                 return 1
         }
@@ -357,45 +474,226 @@ class ColorPaneModule extends Indicator {
     }
 }
 
-// slider
-class SliderShapeModule extends Indicator {
+// button hold
+class ButtonShapeModule extends Indicator {
     constructor(symbols, moduleNum) {
-        super(moduleNum, 'slider-symbol')
+        super(moduleNum, 'button-symbol')
         this.symbolList = symbols
+        this.outlineColorCount = {
+            red: attributeCounter(this.symbolList, 'outlineColor', 'red'),
+            green: attributeCounter(this.symbolList, 'outlineColor', 'green'),
+            blue: attributeCounter(this.symbolList, 'outlineColor', 'blue'),
+            yellow: attributeCounter(this.symbolList, 'outlineColor', 'yellow'),
+            violet: attributeCounter(this.symbolList, 'outlineColor', 'violet'),
+            cyan: attributeCounter(this.symbolList, 'outlineColor', 'cyan'),
+            white: attributeCounter(this.symbolList, 'outlineColor', 'white')
+        }
+        this.insideColorCount = {
+            red: attributeCounter(this.symbolList, 'fillColor', 'red'),
+            green: attributeCounter(this.symbolList, 'fillColor', 'green'),
+            blue: attributeCounter(this.symbolList, 'fillColor', 'blue'),
+            yellow: attributeCounter(this.symbolList, 'fillColor', 'yellow'),
+            violet: attributeCounter(this.symbolList, 'fillColor', 'violet'),
+            cyan: attributeCounter(this.symbolList, 'fillColor', 'cyan'),
+            white: attributeCounter(this.symbolList, 'fillColor', 'white')
+        }
         this.buildModule()
+        this.tempThing = 0
+
     }
     buildModule() {
         // adding the inputs (slider and button)
         const inputContainer = document.createElement('div')
         inputContainer.classList.add('shape-container')
-        // slider
-        {
-            this.slider = document.createElement('input')
-            this.slider.type = 'range'
-            this.slider.min = '-3'
-            this.slider.max = '3'
-            this.slider.step = '1'
-            this.slider.value = '0'
-            this.slider.classList.add('slider-vertical')
-        }
-        // indicator
+        // button
         {
             this.button = document.createElement('input')
             this.button.type = 'button'
-            this.button.value = 'VALIDATE'
-            this.button.onclick = () => console.log('kiss my ass.')
+            this.button.value = 'X'
         }
-        inputContainer.appendChild(this.slider)
         inputContainer.appendChild(this.button)
         this.moduleDom.appendChild(inputContainer)
         // adding the symbols
         const shapeContainer = document.createElement('div')
         this.symbolList.forEach(shape => {
-            console.log(shape)
             shapeContainer.appendChild(shape.symbolDom)
         })
         shapeContainer.classList.add('shape-container')
         this.moduleDom.appendChild(shapeContainer)
+        this.findCorrectRoutine()
+    }
+
+    findCorrectRoutine() {
+        switch (this.symbolList.length) {
+            case 1:
+                let onlySymbol = this.symbolList[0]
+                if (onlySymbol.outlineColor === 'red') {
+                    this.applyRoutine('gamma')
+                } else if (onlySymbol.fillColor === 'white') {
+                    this.applyRoutine('delta')
+                } else if (onlySymbol.fillColor === onlySymbol.outlineColor) {
+                    this.applyRoutine('alpha')
+                } else if (onlySymbol.shape === 'triangle-shape') {
+                    this.applyRoutine('zeta')
+                } else if (onlySymbol.fillColor === 'cyan') {
+                    this.applyRoutine('epsilon')
+                } else {
+                    this.applyRoutine('beta')
+                }
+                break
+            case 2:
+                if (this.symbolList[0].outlineColor === 'white' && this.symbolList[1].outlineColor === 'white') {
+                    this.applyRoutine('epsilon')
+                } else if (this.symbolList[1].fillColor === 'green') {
+                    this.applyRoutine('delta')
+                } else if (this.symbolList[1].outlineColor === 'blue') {
+                    this.applyRoutine('alpha')
+                } else if (this.symbolList[0].shape === 'square-shape') {
+                    this.applyRoutine('beta')
+                } else if (this.symbolList[0].fillColor === this.symbolList[0].outlineColor) {
+                    this.applyRoutine('zeta')
+                } else {
+                    this.applyRoutine('gamma')
+                }
+                break
+            case 3:
+                if (this.symbolList[0].outlineColor === 'red') {
+                    this.applyRoutine('beta')
+                } else if (this.symbolList[2].outlineColor === this.symbolList[2].fillColor) {
+                    this.applyRoutine('gamma')
+                } else if (this.symbolList[1].fillColor === 'green') {
+                    this.applyRoutine('epsilon')
+                } else if (this.symbolList[0].outlineColor === this.symbolList[2].fillColor) {
+                    this.applyRoutine('alpha')
+                } else if (this.symbolList[1].shape === 'circle-shape') {
+                    this.applyRoutine('delta')
+                } else {
+                    this.applyRoutine('zeta')
+                }
+                break
+            case 4:
+                if (this.symbolList[3].outlineColor === 'blue') {
+                    this.applyRoutine('beta')
+                } else if (this.symbolList[2].shape === 'pentagon-shape') {
+                    this.applyRoutine('zeta')
+                } else if (this.symbolList[3].fillColor === 'yellow') {
+                    this.applyRoutine('delta')
+                } else if (this.symbolList[0].outlineColor === 'violet') {
+                    this.applyRoutine('alpha')
+                } else if (this.symbolList[1].fillColor === this.symbolList[3].fillColor) {
+                    this.applyRoutine('gamma')
+                } else {
+                    this.applyRoutine('epsilon')
+                }
+                break
+        }
+    }
+    applyRoutine(routine) {
+        switch (routine) {
+            case 'alpha':
+                this.button.onmousedown = () => {
+                    this.timer = setTimeout(() => {
+                        this.finished()
+                    }, 5000);
+                }
+                this.button.onmouseup = () => {
+                    clearTimeout(this.timer)
+                    missionFailed()
+                }
+                break
+            case 'beta':
+                this.button.onclick = () => {
+                    this.clickTimer = setTimeout(() => {
+                        this.finished()
+                    }, 200);
+                }
+                this.button.ondblclick = () => {
+                    missionFailed()
+                    this.indiDom.style.backgroundColor = 'red'
+                }
+                this.button.onmousedown = () => {
+                    this.timer = setTimeout(() => {
+                        missionFailed()
+                    }, 1000);
+                }
+                this.button.onmouseup = () => {
+                    clearTimeout(this.timer)
+                }
+                break
+            case 'gamma':
+                this.button.onclick = () => {
+                    clearTimeout(this.awaitDblPress)
+                    this.awaitDblPress = setTimeout(() => {
+                        missionFailed()
+                    }, 500);
+                }
+                this.button.ondblclick = () => {
+                    clearTimeout(this.awaitDblPress)
+                    this.finished()
+                }
+                this.button.onmousedown = () => {
+                    this.timer = setTimeout(() => {
+                        missionFailed()
+                    }, 1000);
+                }
+                this.button.onmouseup = () => {
+                    clearTimeout(this.timer)
+                }
+                break
+            case 'delta':
+                this.button.onmousedown = () => {
+                    setTimeout(() => {
+                        this.tempThing += 1
+                    }, 500);
+                }
+                this.button.onmouseup = () => {
+                    if (this.tempThing === 0) {
+                        missionFailed()
+                    }
+                    let regex = new RegExp('4')
+                    if (regex.test(moduleList[0].minute.toString()) || regex.test(moduleList[0].second)) {
+                        this.finished()
+                    } else {
+                        missionFailed()
+                    }
+                }
+                break
+            case 'epsilon':
+                this.button.onmousedown = () => {
+                    setTimeout(() => {
+                        this.tempThing += 1
+                    }, 5000);
+                }
+                this.button.onmouseup = () => {
+                    if (this.tempThing === 0) {
+                        missionFailed()
+                    } else {
+                        this.finished()
+                    }
+                }
+                break
+            case 'zeta':
+                this.button.onmousedown = () => {
+                    setTimeout(() => {
+                        this.tempThing += 1
+                    }, 500);
+                }
+                this.button.onmouseup = () => {
+                    if (this.tempThing === 0) {
+                        missionFailed()
+                    }
+                    let regex = new RegExp('7')
+                    if (regex.test(moduleList[0].minute.toString()) || regex.test(moduleList[0].second)) {
+                        this.finished()
+                    } else {
+                        missionFailed()
+                    }
+                }
+                break
+
+            default:
+                console.log('something fucked up. button hold')
+        }
     }
 }
 class SymbolShape {

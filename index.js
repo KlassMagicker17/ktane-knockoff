@@ -1,5 +1,6 @@
 //@ts-check
-const wireColorList = ['red', 'yellow', 'green', 'cyan', 'blue', 'violet', 'white']
+const colorList = ['red', 'yellow', 'green', 'cyan', 'blue', 'violet', 'white']
+const shapeList = ['square-shape','circle-shape','triangle-shape','hexagon-shape','pentagon-shape']
 const blueLookUpTable = [
     [1, 2, 1, 0],
     [0, 0, 2, 1],
@@ -36,9 +37,9 @@ console.log(setting)
 var moduleFinished = 0
 addEventListener('load', () => {
     makeModule(moduleCount)
-    moduleList.push(new Timer(parseInt(setting.minute), parseInt(setting.second), 0))
-    for(let x = 1; x < moduleCount; x++) {
-        let moduleRandom = randomNum(0,3)
+    moduleList.push(new Timer(parseInt(setting.minute), parseInt(setting.second), 'timer'))
+    for(let x = 0; x < moduleCount; x++) {
+        let moduleRandom = randomNum(0,0)
         switch(moduleRandom) {
             case 0:
                 createWireModule(x)
@@ -52,7 +53,8 @@ addEventListener('load', () => {
             case 3:
                 createColorModule(x)
                 break
+            case 4:
+                createButtonModule(x)
         }
     }
-    // createSliderModule(2);
 })

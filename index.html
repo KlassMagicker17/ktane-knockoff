@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
+    <link rel="shortcut icon" href="lightbulbIcon.ico" type="image/x-icon">
+    <title>KTANE - dumbass version</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
@@ -13,6 +14,7 @@
             overflow: hidden;
             min-height: 100vh;
             align-items: center;
+            justify-content: center;
 
         }
 
@@ -20,25 +22,45 @@
             background-color: hsl(0, 0%, 10%);
             border-radius: 10px;
             flex-flow: column;
-            padding: 50px;
+            padding: 4em;
+            margin: 20px;
             align-items: center;
             display: flex;
         }
 
-        .container label {
-            margin-bottom: 50px;
+        label {
+            text-align: right;
+            width: 100%;
+            height: 100%;
+            display: inline-block;
+        }
+        .container input[type=number] {
+            width: 50px;
+            height: 2em;
+            text-align: center;
         }
 
+        table {
+            margin: 3em 0px;
+            width: 100%;
+        }
+
+        #defuser a {
+            background-color: hsl(0, 0%, 25%);
+            padding: 1em 2em;
+        }
         a {
             text-decoration: none;
             color: white;
-        }
+            transition: opacity 100ms linear;
 
+        }
         a:hover {
             opacity: 0.7;
         }
-        .version{
-            color:gray;
+
+        .version {
+            color: gray;
         }
     </style>
 </head>
@@ -46,17 +68,28 @@
 <body>
 
     <form class="container" id="defuser">
-        <input type="number" name="moduleNum" id="moduleNum" value=5 min=1>
-        <label for="moduleNum">Module Number</label>
-        <input type="number" name="minute" id="minute" value=5 min=0>
-        <label for="minute">Minute</label>
-        <input type="number" name="second" id="second" value=0 min=0 max=59>
-        <label for="second">Seconds</label>
+        <h1>Bomb Settings</h1>
+        <table>
+            <tr class="row">
+
+                <td class="col"><input type="number" name="moduleNum" id="moduleNum" value=5 min=1></td>
+
+                <td class="col"> <label for="moduleNum">Modules</label></td>
+            </tr>
+            <tr class="row">
+                <td class="col"> <input type="number" name="minute" id="minute" value=5 min=0></td>
+                <td class="col"><label for="minute">Minute</label><br></td>
+            </tr>
+            <tr class="row">
+                <td class="col"> <input type="number" name="second" id="second" value=0 min=0 max=59></td>
+                <td class="col"> <label for="second">Seconds</label></td>
+            </tr>
+        </table>
         <a href="game.html">Play!</a>
     </form>
     <div class="container" id="decoder">
         <h1>Decoder's Manual</h1>
-        <a href="pdf/keep talking.pdf"><span class="version">v0.3</span> Current</a>
+        <a href="pdf/keep talking.pdf">Current version</a>
     </div>
     <script>
         function refreshSetting() {

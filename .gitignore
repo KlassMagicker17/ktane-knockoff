@@ -2,3 +2,5 @@ assests/symbol.png
 assests/symbol.svg
 pdf/*
 !pdf/*.pdf
+!pdf/*.tex
+*.code-workspace

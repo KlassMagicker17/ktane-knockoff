@@ -1,0 +1,320 @@
+\documentclass[letterpaper,12pt]{report}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\graphicspath{ {./images/}}
+\titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Huge}
+\newpagestyle{mystyle}
+{\sethead[\thepage][][\chaptertitle]{}{}{\thepage}} 
+\pagestyle{mystyle}
+
+\begin{document}
+\title{\textbf{Keep Talking And Nobody Explodes (dumbass version) v0  .4}}
+\author{KlassMagicker17}
+\date{\today}
+\maketitle
+
+\section*{\underline{Symbols}}
+\textit{A bunch of symbols on a bomb... Dumbass was probs illiterate.}\\[1cm]
+Your companion will have a 4 symbols in front of them. In order to deactivate it,
+they have to press the correct sequence of symbols. The correct sequence can be found in the symbols below. A strip of symbols, either row or column, will show the correct arrangement. atleast one symbol will not show up on your companion's screen.
+\begin{center}
+  \includegraphics[width=10cm, height=10cm]{symbolList}
+\end{center}
+\pagebreak
+
+\section*{\underline{Wires}}
+\textit{Just like the movies, I think. Haven't seen a movie ever since the pandemic.}\\[1cm]
+Your companion will have to cut one of the wires in front of them. Follow the steps below:
+
+\begin{enumerate}
+  \item Reference the color that appeared the most and the total number of wires to the INDEX TABLE.
+  \item In the case of a tie, the one higher(earlier) in this hierarcy takes precedence: RED, CYAN, WHITE, GREEN, BLUE, VIOLET, YELLOW.
+  \item Move to the appropriate table with the corresponding wire count.
+  \item Using the number from the INDEX TABLE, reference that wire's color in the bomb to the table.
+  \item Cut the wire in that position.
+\end{enumerate}
+
+\begin{center}
+  \begin{tabular}{|c|l|c|c|c|c|}
+    \cline{3-6} \multicolumn{2}{c|}{}                                          & \multicolumn{4}{c|}{Wire Count}                                            \\
+    \cline{3-6} \multicolumn{2}{c|}{}                                          & \textbf{3}                      & \textbf{4} & \textbf{5} & \textbf{6}     \\\hline
+    \parbox[t]{5mm}{\multirow{7}{*}{\rotatebox[origin=c]{90}{\textbf{COLOR}}}} & RED                             & 2          & 2          & 3          & 2 \\
+    \cline{2-6}                                                                & CYAN                            & 3          & 3          & 4          & 6 \\
+    \cline{2-6}                                                                & WHITE                           & 1          & 4          & 1          & 5 \\
+    \cline{2-6}                                                                & GREEN                           & 2          & 1          & 2          & 3 \\
+    \cline{2-6}                                                                & BLUE                            & 3          & 2          & 5          & 6 \\
+    \cline{2-6}                                                                & VIOLET                          & 3          & 2          & 3          & 1 \\
+    \cline{2-6}                                                                & YELLOW                          & 1          & 3          & 1          & 2 \\
+    \hline
+  \end{tabular}
+\end{center}
+\vspace{1cm}
+
+\begin{center}
+  \noindent
+  In the case of 3 wires:\vspace{2mm}
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    Red & Green & Blue & Yellow & Violet & Cyan & White \\\hline
+    2   & 1     & 3    & 2      & 3      & 1    & 2     \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\begin{center}
+  \noindent
+  In the case of 4 wires:\vspace{2mm}
+  \begin{tabular}{ |c|c|c|c|c|c|c| }
+    \hline
+    Red & Green & Blue & Yellow & Violet & Cyan & White \\\hline
+    1   & 2     & 3    & 1      & 2      & 4    & 3     \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\begin{center}
+  \noindent
+  In the case of 5 wires:\vspace{2mm}
+  \begin{tabular}{ |c|c|c|c|c|c|c| }
+    \hline
+    Red & Green & Blue & Yellow & Violet & Cyan & White \\
+    \hline
+    5   & 3     & 2    & 4      & 1      & 1    & 3     \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\begin{center}
+  \noindent
+  In the case of 6 wires:\vspace{2mm}
+  \begin{tabular}{ |c|c|c|c|c|c|c| }
+    \hline
+    Red & Green & Blue & Yellow & Violet & Cyan & White \\
+    \hline
+    5   & 4     & 1    & 6      & 2      & 3    & 5     \\
+    \hline
+  \end{tabular}
+\end{center}
+\pagebreak
+
+
+\section*{\underline{Cipher}}
+\textit{a jumble of words expecting another string of gibberish. I wonder if it could be the work of some dumbass.}\\[1cm]
+Your companion will have a 4-letter string. Below it will have a box to input the correct string. When entering the text, make sure to not interact elsewhere lest the bomb thinks your companion has entered the string inside. This applies, typed anything or not.
+If the text ends with a vowel, flip the word while deciphering.
+In order to decipher the string, reference the first letter of the string to the table below.
+Then, rearrange the string according to the sequence. Starting from the left number,
+replace the digit (disregarding the dash when inputting) with the letter in the nth position from the string.  \mbox{e.g. TESQ -> QTES}
+
+\begin{center}
+  \begin{tabular}{|c|c|}
+    \hline
+    letters & pattern \\
+    \hline
+    a,k,x   & 3-4-2-1 \\
+    \hline
+    c,m,f   & 4-3-2-1 \\
+    \hline
+    g,j,n   & 2-1-4-3 \\
+    \hline
+    i,r,q   & 4-3-1-2 \\
+    \hline
+    d,h,o   & 3-1-4-2 \\
+    \hline
+    l,v,y   & 2-3-4-1 \\
+    \hline
+    s,w,p   & 3-4-1-2 \\
+    \hline
+    e,u,z   & 2-4-1-3 \\
+    \hline
+    b,t     & 4-1-2-3 \\
+    \hline
+  \end{tabular}
+\end{center}
+\pagebreak
+
+\section*{\underline{Panel}}
+
+\textit{strange how a children's toy got on a bomb. Our culprit might be an infant...}\\[1cm]
+Your companion will have 4x4 grid with a blue and yellow circle. Using the position of the circles,
+you will tell which cells to press to form one of the patterns below.
+There isn't a specific sequence the squares have to be pressed.
+The cells marked with X will be the cells your companion will have to press.
+\renewcommand{\arraystretch}{1.2}
+\begin{center}
+  \begin{tabular}{c c}
+    Blue Circle & Yellow Circle \\
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      B & C & B & A \\\hline
+      A & A & C & B \\\hline
+      C & A & B & C \\\hline
+      A & B & C & A \\\hline
+    \end{tabular}
+                &
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      3 & 1 & 1 & 2 \\\hline
+      1 & 2 & 1 & 3 \\\hline
+      3 & 2 & 2 & 3 \\\hline
+      2 & 3 & 2 & 1 \\\hline
+    \end{tabular}
+  \end{tabular}
+\end{center}
+\begin{center}
+  \begin{tabular}{c c c c}
+     & 1 & 2 & 3               \\[0.5cm]
+    A
+     &
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      X &   & X & X \\\hline
+        &   &   &   \\\hline
+      X & X &   &   \\\hline
+        &   &   & X \\\hline
+    \end{tabular}
+     &
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+        &   &   & X \\\hline
+        & X &   &   \\\hline
+        & X & X &   \\\hline
+      X &   &   & X \\\hline
+    \end{tabular}
+     &
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      X &   &   & X \\\hline
+        &   & X &   \\\hline
+        & X & X &   \\\hline
+      X &   &   &   \\\hline
+    \end{tabular} \\\\
+    B
+     &
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+        &   & X & X \\\hline
+      X &   &   & X \\\hline
+        & X &   &   \\\hline
+        &   & X &   \\\hline
+    \end{tabular}
+     &
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+        &   & X &   \\\hline
+        &   & X &   \\\hline
+      X & X &   & X \\\hline
+        &   & X &   \\\hline
+    \end{tabular}
+     &
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+        & X &   & X \\\hline
+      X &   &   &   \\\hline
+        & X &   &   \\\hline
+        &   & X & X \\\hline
+    \end{tabular} \\\\
+    C
+     &
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+        & X &   & X \\\hline
+        &   & X &   \\\hline
+        & X &   &   \\\hline
+      X &   & X &   \\\hline
+    \end{tabular}
+     &
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      X &   &   &   \\\hline
+      X & X &   &   \\\hline
+        &   & X &   \\\hline
+      X &   &   & X \\\hline
+    \end{tabular}
+     &
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+        &   & X &   \\\hline
+        & X & X &   \\\hline
+      X & X &   &   \\\hline
+        &   &   & X \\\hline
+    \end{tabular}
+  \end{tabular}
+\end{center}
+\renewcommand{\arraystretch}{1}
+
+\pagebreak
+
+\section*{\underline{Button}}
+\textit{Ah the button, no don't press that you idio-}\\[1cm]
+Your companion will have a button and an array of shapes with an outer and inner color. Starting from the top and flowing down, this is the order of the shapes.
+Sometimes the shapes will have only have one color, but this only means that the outer and inner color is the same.
+In order to deactivate this module, your companion has to perform one of the following maneuvers:
+\renewcommand{\arraystretch}{2}
+\begin{center}
+  \begin{tabular}{|cc|l|}
+    \hline
+    $A$      & (Alpha)   & Hold until the indicator shows green.                    \\
+    $B$      & (Beta)    & Click the button once.                                   \\
+    $\Gamma$ & (Gamma)   & Click the twice in quick succession ; Double click       \\
+    $\Delta$ & (Delta)   & Hold and release when the timer has a 4 in any position. \\
+    $Z$      & (Zeta)    & Hold and release when the timer has a 7 in any position. \\
+    $E$      & (epsilon) & After 5 seconds, release the button.                     \\
+    \hline
+  \end{tabular}
+  \renewcommand{\arraystretch}{1}
+\end{center}
+To work out which maneuver to perform, refer to the lists below. Go down each item in order.
+\begin{center}
+  --1--
+  \begin{enumerate}
+    \item If the \textbf{OUTLINE} is \textbf{RED}, then perform $\Gamma$.
+    \item Otherwise, if the \textbf{FILL} is \textbf{WHITE}, then perform $\Delta$.
+    \item Otherwise, if \textbf{ONE} color, then perform $A$.
+    \item Otherwise, if the \textbf{SHAPE} is \textbf{TRIANGLE}, then perform $Z$.
+    \item Otherwise, if the \textbf{FILL} is \textbf{CYAN}, then perform $E$.
+    \item Otherwise, perform $B$
+  \end{enumerate}
+\end{center}
+\vspace{1cm}
+\begin{center}
+  --2--
+  \begin{enumerate}
+    \item If the \textbf{OUTLINE} of \textbf{BOTH} is the same, then perform $E$.
+    \item Otherwise, if the \textbf{2ND} \textbf{FILL} is \textbf{GREEN}, then perform $\Delta$.
+    \item Otherwise, if the \textbf{2ND} \textbf{OUTLINE} is \textbf{BLUE}, then perform $A$.
+    \item Otherwise, if the \textbf{1ST} \textbf{SHAPE} is \textbf{SQAURE}, then perform $B$.
+    \item Otherwise, if the \textbf{1ST} is \textbf{ONE} color, then perform $Z$.
+    \item Otherwise, perform $\Gamma$.
+  \end{enumerate}
+\end{center}
+\begin{center}
+  --3--
+  \begin{enumerate}
+    \item If the \textbf{1ST} \textbf{OUTLINE} is \textbf{RED}, then perform $B$.
+    \item Otherwise, if the \textbf{3RD} is \textbf{ONE} color, then perform $\Gamma$.
+    \item Otherwise, if the \textbf{2ND} \textbf{FILL} is \textbf{GREEN}, then perform $E$.
+    \item Otherwise, if the \textbf{1ST} \textbf{OUTLINE} is same as \textbf{3RD} \textbf{FILL}, then perform $A$.
+    \item Otherwise, if the \textbf{2ND} \textbf{SHAPE} is \textbf{CIRCLE}, then perform $\Delta$.
+    \item Otherwise, perform $Z$.
+  \end{enumerate}
+\end{center}
+\begin{center}
+  --4--
+  \begin{enumerate}
+    \item If the \textbf{4TH} \textbf{OUTLINE} is \textbf{BLUE}, then perform $B$.
+    \item Otherwise, if the \textbf{3RD} \textbf{SHAPE} is \textbf{PENTAGON}, then perform $Z$.
+    \item Otherwise, if the \textbf{4TH} \textbf{FILL} is \textbf{YELLOW}, then perform $\Delta$.
+    \item Otherwise, if the \textbf{1ST} \textbf{OUTLINE} is \textbf{VIOLET}, then perform $A$.
+    \item Otherwise, if the \textbf{2ND} \textbf{FILL} is same as \textbf{4TH} \textbf{FILL}, then perform $\Gamma$.
+    \item Otherwise, perform $E$.
+  \end{enumerate}
+\end{center}
+\pagebreak
+\end{document}
