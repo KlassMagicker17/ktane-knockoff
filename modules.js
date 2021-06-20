@@ -475,7 +475,7 @@ class ColorPaneModule extends Indicator {
 }
 
 // button hold
-class ButtonShapeModule extends Indicator {
+class ButtonShapeModule extends Indicator { 
     constructor(symbols, moduleNum) {
         super(moduleNum, 'button-symbol')
         this.symbolList = symbols
